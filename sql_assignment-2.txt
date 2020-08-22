@@ -1,0 +1,97 @@
+Instructions:  
+There are multiple questions.
+Use chinook database to answer the questions.
+Please paste your answers (statements) as a plain text using the related question number.
+Good Luck!
+_____________________________
+Questions:
+How many tracks does each album have? Your solution should include Album id and its number of tracks sorted from highest to lowest.
+
+Find the album title of the tracks. Your solution should include track name and its album title.
+
+Find the minimum duration of the track in an album. Your solution should include track name, album id, album title and duration of the track sorted from highest to lowest.
+
+Find the total duration of each album. Your solution should include track name, album id, album title and its total duration sorted from highest to lowest.
+
+Based on the previous question, find the albums whose total duration is higher than 70 minutes. Your solution should include album title and total duration
+
+________________________________________
+1)  SELECT COUNT(name) AS parca_sayısı, AlbumId from tracks GROUP BY AlbumId ORDER BY parca_sayısı DESC;
+
+
+
+2)  SELECT
+
+ albums.Title,
+
+ tracks.Name
+
+FROM albums
+
+INNER JOIN tracks
+
+ ON albums.AlbumId = tracks.AlbumId;
+
+
+
+3) SELECT
+
+tracks.Name,
+
+tracks.AlbumId,
+
+albums.Title,
+
+MIN(tracks.Milliseconds)
+
+FROM tracks
+
+INNER JOIN albums
+
+ ON tracks.AlbumId = albums.AlbumId
+
+GROUP BY tracks.AlbumId
+
+ORDER BY MIN(tracks.Milliseconds) DESC;
+
+
+
+4)   SELECT
+
+tracks.Name,
+
+tracks.AlbumId,
+
+albums.Title,
+
+SUM(tracks.Milliseconds)
+
+FROM albums
+
+INNER JOIN tracks
+
+ ON albums.AlbumId = tracks.AlbumId
+
+ GROUP BY albums.AlbumId
+
+ ORDER BY SUM(tracks.Milliseconds) DESC;
+
+
+
+5)     SELECT
+
+albums.Title,
+
+SUM(tracks.Milliseconds) AS toplam_sure
+
+FROM albums
+
+INNER JOIN tracks
+
+ ON albums.AlbumId = tracks.AlbumId
+
+ GROUP BY albums.AlbumId
+
+ HAVING toplam_sure >4200000
+
+ ORDER BY toplam_sure DESC;
